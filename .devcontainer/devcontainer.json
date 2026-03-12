@@ -1,0 +1,34 @@
+{
+  "name": "Kafka Learning Lab",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "dockerDashComposeVersion": "v2"
+    }
+  },
+  "postCreateCommand": "pip install -r requirements.txt && chmod +x scripts/*.sh",
+  "postStartCommand": "./scripts/start.sh",
+  "forwardPorts": [9092, 8080],
+  "portsAttributes": {
+    "9092": { "label": "Kafka Broker", "onAutoForward": "silent" },
+    "8080": { "label": "Kafka UI (Redpanda Console)", "onAutoForward": "notify" }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.debugpy",
+        "redhat.vscode-yaml"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "8gb",
+    "storage": "32gb"
+  }
+}
